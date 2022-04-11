@@ -44,6 +44,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255)]
     private $code;
 
+    #[ORM\OneToOne(mappedBy: 'user', targetEntity: Account::class, cascade: ['persist', 'remove'])]
+    private $account;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -182,6 +185,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCode(string $code): self
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getAccount(): ?Account
+    {
+        return $this->account;
+    }
+
+    public function setAccount(?Account $account): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($account === null && $this->account !== null) {
+            $this->account->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($account !== null && $account->getUser() !== $this) {
+            $account->setUser($this);
+        }
+
+        $this->account = $account;
 
         return $this;
     }

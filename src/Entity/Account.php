@@ -19,6 +19,9 @@ class Account
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $recovery_email;
 
+    #[ORM\OneToOne(inversedBy: 'account', targetEntity: User::class, cascade: ['persist', 'remove'])]
+    private $user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,18 @@ class Account
     public function setRecoveryEmail(?string $recovery_email): self
     {
         $this->recovery_email = $recovery_email;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
