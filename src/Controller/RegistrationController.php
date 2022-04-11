@@ -7,6 +7,7 @@ use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\EmailVerifier;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,11 +28,35 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
-        $user = new User();
+			$url_code = $request->get('id');
+			$iv = $this->decrypt($_ENV["KEY"], $url_code);
+			print "<pre>". print_r("DECODE: " . $iv, true) . "</pre>".PHP_EOL;
+
+			$user = $doctrine->getRepository(User::class)->findOneBy(['code' => $iv]);
+
+			$user_Id = $user->getId();
+			$user_IdentificationNumber = $user->getIdentificationNumber();
+			$user_Code = $user->getCode();
+			$user->setIdentificationNumber("");
+			$user->setCode("");
+			$user->setUsername("");
+
+			$user_name = $user->getName();
+			$user_last_name = $user->getLastName();
+
+
+			echo "<pre>" . print_r("USER: " . $user, true) ."</pre>". PHP_EOL;
+
+			//dd();
+        //$user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
+
+        //Verificar identificationNumber and code
+				//$user->setIdentificationNumber("");
+				//$user->setCode("");
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -57,7 +82,7 @@ class RegistrationController extends AbstractController
             );*/
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('_profiler_phpinfo');
+            return $this->redirectToRoute('app_user_edit',['id'=>$user_Id]);
         }
 
         return $this->render('registration/register.html.twig', [
@@ -94,4 +119,15 @@ class RegistrationController extends AbstractController
 
         return $this->redirectToRoute('app_register');
     }
+
+		function encrypt($key, $payload) {
+			$iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
+			$encrypted = openssl_encrypt($payload, 'aes-256-cbc', $key, 0, $iv);
+			return base64_encode($encrypted . '::' . $iv);
+		}
+
+		function decrypt($key, $garble) {
+			list($encrypted_data, $iv) = explode('::', base64_decode($garble), 2);
+			return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+		}
 }

@@ -210,4 +210,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+	public function __toString() {
+		return
+			//"id: " . $this->id . PHP_EOL .
+			"identification_number: " . $this->identification_number . PHP_EOL .
+			"username: " . $this->username . PHP_EOL .
+			"name: " . $this->name . PHP_EOL .
+			"last_name: " . $this->last_name . PHP_EOL .
+			"code: " . $this->code;
+	}
 }
