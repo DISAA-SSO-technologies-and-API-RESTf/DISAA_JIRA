@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Account;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
@@ -49,8 +50,7 @@ class RegistrationController extends AbstractController
 
 			echo "<pre>" . print_r("USER: " . $user, true) ."</pre>". PHP_EOL;
 
-			//dd();
-        //$user = new User();
+				$account= new Account();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -69,9 +69,15 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $data=$form->getData();
+            //dd($data);
+            //dd($data->getUsername());
+            $account->setEmail($data->getUsername()."@disaa.com");
+            $account->setUser($user);
 
+            $entityManager->persist($user);
+            $entityManager->persist($account);
+            $entityManager->flush();
             // generate a signed url and email it to the user
             /*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
@@ -82,6 +88,7 @@ class RegistrationController extends AbstractController
             );*/
             // do anything else you need here, like send an email
 
+						$this->addFlash('success', "La cuenta ha sido creada");
             return $this->redirectToRoute('app_user_edit',['id'=>$user_Id]);
         }
 
