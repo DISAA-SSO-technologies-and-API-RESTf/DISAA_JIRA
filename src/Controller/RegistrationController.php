@@ -29,11 +29,9 @@ class RegistrationController extends AbstractController
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
-    {
+		public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response {
 			$url_code = $request->get('id');
 			$iv = $this->decrypt($_ENV["KEY"], $url_code);
-			print "<pre>". print_r("DECODE: " . $iv, true) . "</pre>".PHP_EOL;
 
 			$user = $doctrine->getRepository(User::class)->findOneBy(['code' => $iv]);
 
@@ -55,55 +53,58 @@ class RegistrationController extends AbstractController
 				mb_substr($user_last_name, 0, -2, 'UTF-8') . "." . mb_substr($user_name, 0, -2, 'UTF-8'),
 			];
 
-			echo "<pre>" . print_r("USER: " . $user, true) ."</pre>". PHP_EOL;
+			print "<pre>" . print_r("DECODE: " . $iv, true) . "</pre>" . PHP_EOL;
+			echo "<pre>" . print_r("USER: " . $user, true) . "</pre>" . PHP_EOL;
 
-				$account= new Account();
-        $form = $this->createForm(RegistrationFormType::class, $user);
-        $form->handleRequest($request);
+			$account = new Account();
+			$form = $this->createForm(RegistrationFormType::class, $user);
+			$form->handleRequest($request);
 
-        //Verificar identificationNumber and code
-				//$user->setIdentificationNumber("");
-				//$user->setCode("");
+			$data = $form->getData();
+			//dd($data);
+			//dd($data->getUsername());
+			$user->setUsername($data->getUsername());
+			//$form->get('username')->submit('Fabien');
 
-        if ($form->isSubmitted() && $form->isValid()) {
+			//Verificar identificationNumber and code
+			//$user->setIdentificationNumber("");
+			//$user->setCode("");
 
-        		$user->setIsVerified(true);
-        		// encode the plain password
-            $user->setPassword(
-            $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+			if ($form->isSubmitted() && $form->isValid()) {
+				$user->setIsVerified(true);
+				// encode the plain password
+				$user->setPassword(
+					$userPasswordHasher->hashPassword(
+						$user,
+						$form->get('plainPassword')->getData()
+					)
+				);
 
-            $data=$form->getData();
-            //dd($data);
-            //dd($data->getUsername());
-            $account->setEmail($data->getUsername()."@disaa.com");
-            $account->setUser($user);
+				$account->setEmail($data->getUsername() . "@disaa.com");
+				$account->setUser($user);
 
-            $entityManager->persist($user);
-            $entityManager->persist($account);
-            $entityManager->flush();
-            // generate a signed url and email it to the user
-            /*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('transferencia.email.20@gmail.com', 'DISAA MAIL'))
-                    ->to($user->getUsername())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );*/
-            // do anything else you need here, like send an email
+				$entityManager->persist($user);
+				$entityManager->persist($account);
+				$entityManager->flush();
+				// generate a signed url and email it to the user
+				/*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+						(new TemplatedEmail())
+								->from(new Address('transferencia.email.20@gmail.com', 'DISAA MAIL'))
+								->to($user->getUsername())
+								->subject('Please Confirm your Email')
+								->htmlTemplate('registration/confirmation_email.html.twig')
+				);*/
+				// do anything else you need here, like send an email
 
-						$this->addFlash('success', "La cuenta ha sido creada");
-            return $this->redirectToRoute('app_user_edit',['id'=>$user_Id]);
-        }
+				$this->addFlash('success', "La cuenta ha sido creada");
+				return $this->redirectToRoute('app_user_edit', ['id' => $user_Id]);
+			}
 
-				return $this->render('registration/register.html.twig', [
-					'registrationForm' => $form->createView(),
-					'usernames' => $usernames,
-				]);
-    }
+			return $this->render('registration/register.html.twig', [
+				'registrationForm' => $form->createView(),
+				'usernames' => $usernames,
+			]);
+		}
 
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response

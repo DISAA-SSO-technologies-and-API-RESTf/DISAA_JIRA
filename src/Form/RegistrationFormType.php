@@ -20,6 +20,16 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+					->add('username', TextType::class,[
+						'label' => false,
+						'required' => false,
+						'attr' => [
+							'id'=>'',
+
+							'placeholder' => 'Username1',
+							'class'=>"form-control paddin-button-7 username_hiden",
+						],
+					])
             ->add('identification_number', TextType::class, [
 							'constraints' => [
 								new NotBlank(),
@@ -43,33 +53,26 @@ class RegistrationFormType extends AbstractType
 								'class'=>"form-control paddin-button-7",
 							],
 						])
+
 					//->add('username')
-            ->add('username', TextType::class,[
-							'label' => false,
-							'attr' => [
-								'placeholder' => 'Username',
-								'class'=>"form-control paddin-button-7 username_hiden",
-							],
-						])
+					/*->add('username', EntityType::class, [
+						'class' => User::class,
+						'query_builder' => function (EntityRepository $er) {
+							return $er->createQueryBuilder('User','u')
+								//->from('User', 'u')
+								->orderBy('u.username', 'ASC');
+						},
+						'choice_label' => 'username',
+						])*/
 
-/*->add('username', EntityType::class, [
-	'class' => User::class,
-	'query_builder' => function (EntityRepository $er) {
-		return $er->createQueryBuilder('User','u')
-			//->from('User', 'u')
-			->orderBy('u.username', 'ASC');
-	},
-	'choice_label' => 'username',
-])*/
-
-            ->add('agreeTerms', CheckboxType::class, [
+            /*->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
-            ])
+            ])*/
 						->add('plainPassword', PasswordType::class, [
 							// instead of being set onto the object directly,
 							// this is read and encoded in the controller
