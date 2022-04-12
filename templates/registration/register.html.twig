@@ -12,9 +12,20 @@
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.identification_number) }}
         {{ form_row(registrationForm.code) }}
-        {{ form_row(registrationForm.username) }}
+
+            <div>
+                <select id="registration_form_username" name="registration_form[username]" required="required" placeholder="Choose username" class="form-control paddin-button-7">
+                    <option value="" id="text_gray">Choose username</option>
+                    {% for item in usernames %}
+                        <option value="{{ item|lower }}">{{ item|lower }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+
+        {#{{ form_row(registrationForm.username) }}#}
         {{ form_row(registrationForm.plainPassword, {
-            
+
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 

@@ -12,6 +12,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Doctrine\ORM\EntityRepository;
 
 class RegistrationFormType extends AbstractType
 {
@@ -41,13 +43,25 @@ class RegistrationFormType extends AbstractType
 								'class'=>"form-control paddin-button-7",
 							],
 						])
+					//->add('username')
             ->add('username', TextType::class,[
 							'label' => false,
 							'attr' => [
 								'placeholder' => 'Username',
-								'class'=>"form-control paddin-button-7",
+								'class'=>"form-control paddin-button-7 username_hiden",
 							],
 						])
+
+/*->add('username', EntityType::class, [
+	'class' => User::class,
+	'query_builder' => function (EntityRepository $er) {
+		return $er->createQueryBuilder('User','u')
+			//->from('User', 'u')
+			->orderBy('u.username', 'ASC');
+	},
+	'choice_label' => 'username',
+])*/
+
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [

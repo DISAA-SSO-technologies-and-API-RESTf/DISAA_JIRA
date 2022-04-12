@@ -46,7 +46,14 @@ class RegistrationController extends AbstractController
 
 			$user_name = $user->getName();
 			$user_last_name = $user->getLastName();
-
+			$usernames = [
+				$user_name . "." . $user_last_name,
+				$user_last_name . "." . $user_name,
+				mb_substr($user_name, 0, 1, 'UTF-8') . "." . $user_last_name,
+				mb_substr($user_last_name, 0, 1, 'UTF-8') . "." . $user_name,
+				mb_substr($user_name, 0, -2, 'UTF-8') . "." . mb_substr($user_last_name, 0, -2, 'UTF-8'),
+				mb_substr($user_last_name, 0, -2, 'UTF-8') . "." . mb_substr($user_name, 0, -2, 'UTF-8'),
+			];
 
 			echo "<pre>" . print_r("USER: " . $user, true) ."</pre>". PHP_EOL;
 
@@ -92,9 +99,10 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_user_edit',['id'=>$user_Id]);
         }
 
-        return $this->render('registration/register.html.twig', [
-            'registrationForm' => $form->createView(),
-        ]);
+				return $this->render('registration/register.html.twig', [
+					'registrationForm' => $form->createView(),
+					'usernames' => $usernames,
+				]);
     }
 
     #[Route('/verify/email', name: 'app_verify_email')]

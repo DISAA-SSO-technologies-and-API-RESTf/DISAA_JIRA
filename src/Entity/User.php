@@ -47,6 +47,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', targetEntity: Account::class, cascade: ['persist', 'remove'])]
     private $account;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $gender;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -212,12 +215,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 	public function __toString() {
-		return
-			//"id: " . $this->id . PHP_EOL .
-			"identification_number: " . $this->identification_number . PHP_EOL .
-			"username: " . $this->username . PHP_EOL .
-			"name: " . $this->name . PHP_EOL .
-			"last_name: " . $this->last_name . PHP_EOL .
-			"code: " . $this->code;
-	}
+         		return
+         			//"id: " . $this->id . PHP_EOL .
+         			"identification_number: " . $this->identification_number . PHP_EOL .
+         			"username: " . $this->username . PHP_EOL .
+         			"name: " . $this->name . PHP_EOL .
+         			"last_name: " . $this->last_name . PHP_EOL .
+         			"code: " . $this->code;
+         	}
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(?string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
 }
