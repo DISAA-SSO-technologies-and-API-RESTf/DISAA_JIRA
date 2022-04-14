@@ -1,0 +1,189 @@
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: var(--bs-dark);
+    border-color: var(--bs-gray);
+}
+
+.form-control-dark:focus {
+    color: #fff;
+    background-color: var(--bs-dark);
+    border-color: #fff;
+    box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+}
+
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.text-small {
+    font-size: 85%;
+}
+
+.dropdown-toggle {
+    outline: 0;
+}
+
+.form-group.paddin-button-7 {
+    padding-bottom: 7px;
+}
+
+button#fe-cmd-guardar {
+    width: 100%;
+}
+
+#text_gray {
+    color: gray;
+}
+
+select#usernames {
+    color: gray;
+}
+
+select#usernames option {
+    color: gray;
+}
+
+.text-center.paddin-button-7 {
+    padding-bottom: 0px;
+}
+
+input#user_identification_number {
+    margin-bottom: 7px;
+    /*width: 120%;*/
+}
+
+input#user_name {
+    margin-bottom: 7px;
+    /*width: 120%;*/
+}
+
+input#user_last_name {
+    margin-bottom: 7px;
+    /*width: 120%;*/
+}
+
+input#user_type {
+    margin-bottom: 7px;
+    /*width: 120%;*/
+}
+
+select#user_gender {
+    margin-bottom: 7px;
+    /*width: 120%;*/
+}
+
+button.btn {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    width: 100%;
+}
+
+
+/**
+DISS
+ */
+.mgb-lg {
+    margin-bottom: 24px !important;
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+    max-width: 100px;
+    margin-left: 36%;
+}
+
+div#principal {
+    /* background-color: #683b3b; */
+    min-width: 123%;
+    margin-left: -13%;
+    height: 113px;
+    margin-top: 15px;
+    margin-bottom: 19px;
+}
+
+div#principal_img {
+    float: left;
+    /* background-color: red; */
+    width: 31%;
+    height: 100%;
+}
+
+
+div#principal_datos {
+    float: left;
+    /*background-color: antiquewhite;*/
+    width: 65%;
+}
+
+.detail_account {
+    /*background-color: aquamarine;*/
+    margin-left: 16%;
+}
+
+span.label_info {
+    color: gray;
+    padding-right: 12px;
+}
+
+/**
+        Create account
+ */
+
+input#registration_form_username {
+    visibility: hidden !important;
+    height: 2px;
+}
+
+input#registration_form_identification_number {
+    margin-bottom: 8px;
+}
+
+input#registration_form_code {
+    margin-bottom: 8px;
+}
+
+select#registration_form_username {
+    margin-bottom: 8px;
+}
+
+input#registration_form_plainPassword {
+    margin-bottom: 8px;
+}
+
+img.rounded {
+    border-color: #e9e9e9;
+    border-width: 2px 2px 3px 2px;
+    border-style: solid;
+    border-radius: 150px !important;
+}
+
+button.btn-close {
+    height: 0.15em;
+    padding-right: -12px;
+    width: 3em;
+}

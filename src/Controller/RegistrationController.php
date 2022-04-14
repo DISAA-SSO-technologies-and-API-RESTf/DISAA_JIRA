@@ -22,8 +22,11 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 class RegistrationController extends AbstractController
 {
     private EmailVerifier $emailVerifier;
+		public static $no_permitidas= array ("á","é","í","ó","ú","Á","É","Í","Ó","Ú","ñ","À","Ã","Ì","Ò","Ù","Ã™","Ã ","Ã¨","Ã¬","Ã²","Ã¹","ç","Ç","Ã¢","ê","Ã®","Ã´","Ã»","Ã‚","ÃŠ","ÃŽ","Ã”","Ã›","ü","Ã¶","Ã–","Ã¯","Ã¤","«","Ò","Ã","Ã„","Ã‹");
+		public static $permitidas= array ("a","e","i","o","u","A","E","I","O","U","n","N","A","E","I","O","U","a","e","i","o","u","c","C","a","e","i","o","u","A","E","I","O","U","u","o","O","i","a","e","U","I","A","E");
 
-    public function __construct(EmailVerifier $emailVerifier)
+
+	public function __construct(EmailVerifier $emailVerifier)
     {
         $this->emailVerifier = $emailVerifier;
     }
@@ -44,13 +47,16 @@ class RegistrationController extends AbstractController
 
 			$user_name = $user->getName();
 			$user_last_name = $user->getLastName();
+
 			$usernames = [
-				$user_name . "." . $user_last_name,
-				$user_last_name . "." . $user_name,
-				mb_substr($user_name, 0, 1, 'UTF-8') . "." . $user_last_name,
-				mb_substr($user_last_name, 0, 1, 'UTF-8') . "." . $user_name,
-				mb_substr($user_name, 0, -2, 'UTF-8') . "." . mb_substr($user_last_name, 0, -2, 'UTF-8'),
-				mb_substr($user_last_name, 0, -2, 'UTF-8') . "." . mb_substr($user_name, 0, -2, 'UTF-8'),
+				//str_replace: elimina los espacios en blanco entre las palabras
+				//mb_substr: corta las palabras
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', $user_name . "." . $user_last_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', $user_last_name . "." . $user_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_name, 0, 1, 'UTF-8') . "." . $user_last_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, 1, 'UTF-8') . "." . $user_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_name, 0, -2, 'UTF-8') . "." . mb_substr($user_last_name, 0, -2, 'UTF-8'))),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, -2, 'UTF-8') . "." . mb_substr($user_name, 0, -2, 'UTF-8'))),
 			];
 
 			print "<pre>" . print_r("DECODE: " . $iv, true) . "</pre>" . PHP_EOL;
@@ -80,24 +86,33 @@ class RegistrationController extends AbstractController
 					)
 				);
 
-				$account->setEmail($data->getUsername() . "@disaa.com");
-				$account->setUser($user);
+				if (strcmp($user_IdentificationNumber, $data->getIdentificationNumber()) == 0) {
+					$account->setEmail($data->getUsername() . "@disaa.com");
+					$account->setUser($user);
 
-				$entityManager->persist($user);
-				$entityManager->persist($account);
-				$entityManager->flush();
-				// generate a signed url and email it to the user
-				/*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-						(new TemplatedEmail())
-								->from(new Address('transferencia.email.20@gmail.com', 'DISAA MAIL'))
-								->to($user->getUsername())
-								->subject('Please Confirm your Email')
-								->htmlTemplate('registration/confirmation_email.html.twig')
-				);*/
-				// do anything else you need here, like send an email
+					$entityManager->persist($user);
+					$entityManager->persist($account);
+					$entityManager->flush();
+					// generate a signed url and email it to the user
+					/*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+							(new TemplatedEmail())
+									->from(new Address('transferencia.email.20@gmail.com', 'DISAA MAIL'))
+									->to($user->getUsername())
+									->subject('Please Confirm your Email')
+									->htmlTemplate('registration/confirmation_email.html.twig')
+					);*/
+					// do anything else you need here, like send an email
 
-				$this->addFlash('success', "La cuenta ha sido creada");
-				return $this->redirectToRoute('app_user_edit', ['id' => $user_Id]);
+					$this->addFlash('success', "La cuenta ha sido creada");
+					return $this->redirectToRoute('app_user_edit', ['id' => $user_Id]);
+				}
+				else {
+					$this->addFlash('error', "Los datos ingresados para crear la cuenta no son correctos");
+					return $this->render('registration/register.html.twig', [
+						'registrationForm' => $form->createView(),
+						'usernames' => $usernames,
+					]);
+				}
 			}
 
 			return $this->render('registration/register.html.twig', [

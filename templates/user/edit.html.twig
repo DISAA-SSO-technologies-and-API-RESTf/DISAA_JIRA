@@ -3,11 +3,22 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <h1 class="text-center paddin-button-7">Student</h1>
+
+    <div id="principal">
+        <div id="principal_img">
+            <img src="{{ asset('img/avatar.png')}}" class="rounded responsive" alt="">
+        </div>
+        <div id="principal_datos">
+            <div class="detail_account"> <h3>{{ user.name }} {{ last_name }} </h3></div>
+            <div class="detail_account"><span class="label_info"> Account: </span>{{ user.username }}</div>
+            <div class="detail_account"> <span class="label_info">Email: </span>{{ user.account.email}} </div>
+        </div>
+    </div>
 
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+    {#<a href="{{ path('app_user_index') }}">back to list</a>#}
 
-    {{ include('user/_delete_form.html.twig') }}
+    {#{{ include('user/_delete_form.html.twig') }}#}
 {% endblock %}

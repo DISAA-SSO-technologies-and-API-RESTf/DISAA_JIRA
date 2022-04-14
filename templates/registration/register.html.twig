@@ -7,7 +7,10 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h1 class="text-center paddin-button-7">Create account</h1>
+    <div class="text-center paddin-button-7">
+        <img src="{{ asset('img/new_account.PNG')}}" class="rounded" alt="">
+    </div>
 
     {{ form_start(registrationForm) }}
       {{ form_row(registrationForm.username) }}
@@ -30,6 +33,6 @@
         }) }}
        {# {{ form_row(registrationForm.agreeTerms) }}#}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn">Create account</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
