@@ -3,7 +3,44 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
+    <style>
+        .image_container_left {
+            width: 35%;
+            margin: auto;
+            margin-bottom: 2%;
+            margin-top: 3%;
+            box-shadow: 5px 3px 10px 0px #a2a2a744;
+        }
+        .mx-auto {
+            margin-right: auto!important;
+            margin-left: auto!important;
+            width: 85%;
+        }
+        .container.display_none {
+            display: none;
+        }
+        img.rounded {
+            border-color: #e9e9e9;
+            border-width: 2px 2px 3px 2px;
+            border-style: solid;
+            border-radius: 150px !important;
+            width: 137px;
+            margin-bottom: 7%;
+            margin-top: 5%;
+        }
+        .bg-light.p-5.rounded {
+            border: 1px solid gray;
+        }
+        .rounded {
+            border-radius: -1.75rem!important;
+        }
+    </style>
+    <h1 class="text-center paddin-button-7">Login</h1>
+    <div class="text-center paddin-button-7">
+        <img src="{{ asset('img/new_account.PNG')}}" class="rounded" alt="">
+    </div>
+    <div id="">
+        <form method="post">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -14,29 +51,28 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <p>Enter the authorized account details:</p>
+    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" placeholder="Username" required autofocus>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Password" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+    {#Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+    See https://symfony.com/doc/current/security/remember_me.html#}
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" name="_remember_me"> Remember me
+        </label>
+    </div>
+
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
+        Login
     </button>
 </form>
+    </div>
 {% endblock %}

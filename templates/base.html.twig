@@ -30,26 +30,36 @@
                     {#<li><a href="#" class="nav-link px-2 text-white">Features</a></li>#}
                 </ul>
 
-                {#<div class="text-end">
-                    <button type="button" class="btn btn-outline-light me-2">Login</button>
-                    <button type="button" class="btn btn-warning">Sign-up</button>
-                </div>#}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        Hi {{ app.user.username }}, <a href="{{ path('app_logout') }}"> Logout</a>
+                    </div>
+                {% else %}
+                    <div class="text-end">
+                        <a href="{{ path('app_login') }}">Login</a>
+                        {#<button type="button" class="btn btn-outline-light me-2">Login</button>#}
+                    </div>
+                {% endif %}
             </div>
         </div>
     </header>
 
     <div class="container">
-        {{  include('flash/success.html.twig') }}
-        {{  include('flash/error.html.twig') }}
-        <div>
-            <div class="bg-light p-5 rounded">
-                <div class="col-sm-4 mx-auto">
-                    {% block body %}{% endblock %}
+        <div class="image_container_left">
+            {{  include('flash/success.html.twig') }}
+            {{  include('flash/error.html.twig') }}
+            <div>
+                <div class="bg-light p-5 rounded">
+                    <div class="col-sm-4 mx-auto">
+                        {% block body %}{% endblock %}
+                    </div>
                 </div>
             </div>
         </div>
+        </div>
     </div>
-    <div class="container">
+    <div class="container display_none">
         <footer class="py-3 my-4">
             <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                 <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">El contenido de esta obra es de propiedad intelectual de la DISAA, todos los derechos reservados.</a></li>
@@ -58,6 +68,4 @@
         </footer>
     </div>
     </body>
-
-
 </html>

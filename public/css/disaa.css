@@ -187,3 +187,11 @@ button.btn-close {
     padding-right: -12px;
     width: 3em;
 }
+
+input#inputUsername {
+    margin-bottom: 7px;
+}
+
+input#inputPassword {
+    margin-bottom: 7px;
+}
