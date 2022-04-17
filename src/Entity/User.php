@@ -5,12 +5,13 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface,\Serializable, EquatableInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -49,6 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $gender;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $locale;
 
     public function getId(): ?int
     {
@@ -215,14 +219,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 	public function __toString() {
-         		return
-         			//"id: " . $this->id . PHP_EOL .
-         			"identification_number: " . $this->identification_number . PHP_EOL .
-         			"username: " . $this->username . PHP_EOL .
-         			"name: " . $this->name . PHP_EOL .
-         			"last_name: " . $this->last_name . PHP_EOL .
-         			"code: " . $this->code;
-         	}
+                  		return
+                  			//"id: " . $this->id . PHP_EOL .
+                  			"identification_number: " . $this->identification_number . PHP_EOL .
+                  			"username: " . $this->username . PHP_EOL .
+                  			"name: " . $this->name . PHP_EOL .
+                  			"last_name: " . $this->last_name . PHP_EOL .
+                  			"code: " . $this->code;
+                  	}
 
     public function getGender(): ?string
     {
@@ -235,4 +239,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(?string $locale): self
+    {
+        $this->locale = $locale;
+
+        return $this;
+    }
+
+		public function serialize() {
+			return serialize([
+				$this->id,
+				$this->username,
+				$this->name,
+				$this->last_name,
+				$this->password,
+				$this->locale,
+			]);
+		}
+
+		public function unserialize($string) {
+			list(
+				$this->id,
+				$this->username,
+				$this->name,
+				$this->last_name,
+				$this->password,
+				$this->locale,
+				) = unserialize($string, ['allowed_classes' => false]);
+		}
+
+	public function isEqualTo(UserInterface $user): bool {
+		if ($user instanceof self)
+		{
+			if ($user->getLocale() != $this->locale) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

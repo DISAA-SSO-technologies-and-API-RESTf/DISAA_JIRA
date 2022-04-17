@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Subscribers\LocalSubscriber;
 use App\Entity\Account;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
@@ -18,6 +19,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
+use App\Subscribers;
 
 class RegistrationController extends AbstractController
 {
@@ -78,6 +80,7 @@ class RegistrationController extends AbstractController
 
 			if ($form->isSubmitted() && $form->isValid()) {
 				$user->setIsVerified(true);
+				$user->setLocale('en_US');
 				// encode the plain password
 				$user->setPassword(
 					$userPasswordHasher->hashPassword(
@@ -161,4 +164,16 @@ class RegistrationController extends AbstractController
 			list($encrypted_data, $iv) = explode('::', base64_decode($garble), 2);
 			return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
 		}
+
+	#[Route('/changelanguaje', name: 'change_language')]
+	public function changeLanguage(Request $request){
+
+		//$Sub= new LocalSubscriber('en_US');
+		//dd($Sub->setDefaultLocale('en_US'));
+		//$request->setDefaultLocale('fr_FR');
+		//$request->setDefaultLocale('en_US');
+		//var_dump($request->attributes->get('_locale'));
+		dd($request->getLocale());
+		return $request->getLocale();
+	}
 }

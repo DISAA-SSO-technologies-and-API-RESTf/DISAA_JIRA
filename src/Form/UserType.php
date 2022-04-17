@@ -64,6 +64,18 @@ class UserType extends AbstractType
 					'class' => "form-control paddin-button-7",
 				],
 			])
+			->add('locale', ChoiceType::class, [
+				'constraints' => [
+					new NotBlank(),
+					new Length(['min' => 1]),
+				],
+				'label' => false,
+				'choices' => ["USA en_US" => "en_US", "Francia fr_FR" => "fr_FR"],
+				'attr' => [
+					'placeholder' => 'Language',
+					'class' => "form-control paddin-button-7",
+				],
+			])
 			//->add('type')
 			//->add('code')
 			//->add('account')

@@ -195,3 +195,7 @@ input#inputUsername {
 input#inputPassword {
     margin-bottom: 7px;
 }
+
+select#user_locale {
+    margin-bottom: 7px;
+}

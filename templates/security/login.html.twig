@@ -52,6 +52,8 @@
     {% endif %}
 
 
+    <p>{% trans  %}Hi {% endtrans %}</p>
+    {#<p>{{ hi|trans({'%hi%': 'AquiNombreInicial'}) }}</p>#}
     <p>Enter the authorized account details:</p>
     <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" placeholder="Username" required autofocus>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Password" required>
