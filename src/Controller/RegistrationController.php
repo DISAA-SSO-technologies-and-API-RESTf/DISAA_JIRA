@@ -53,14 +53,15 @@ class RegistrationController extends AbstractController
 			$usernames = [
 				//str_replace: elimina los espacios en blanco entre las palabras
 				//mb_substr: corta las palabras
-				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', $user_name . "." . $user_last_name)),
-				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', $user_last_name . "." . $user_name)),
-				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_name, 0, 1, 'UTF-8') . "." . $user_last_name)),
-				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, 1, 'UTF-8') . "." . $user_name)),
-				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_name, 0, -2, 'UTF-8') . "." . mb_substr($user_last_name, 0, -2, 'UTF-8'))),
-				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, -2, 'UTF-8') . "." . mb_substr($user_name, 0, -2, 'UTF-8'))),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', $user_name . "_" . $user_last_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', $user_last_name . "_" . $user_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_name, 0, 1, 'UTF-8') . "_" . $user_last_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, 1, 'UTF-8') . "_" . $user_name)),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_name, 0, -2, 'UTF-8') . "_" . mb_substr($user_last_name, 0, -2, 'UTF-8'))),
+				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, -2, 'UTF-8') . "_" . mb_substr($user_name, 0, -2, 'UTF-8'))),
 			];
 
+			print "<pre>" . print_r("URL_CODE: " . $url_code, true) . "</pre>" . PHP_EOL;
 			print "<pre>" . print_r("DECODE: " . $iv, true) . "</pre>" . PHP_EOL;
 			echo "<pre>" . print_r("USER: " . $user, true) . "</pre>" . PHP_EOL;
 
@@ -96,6 +97,7 @@ class RegistrationController extends AbstractController
 					$entityManager->persist($user);
 					$entityManager->persist($account);
 					$entityManager->flush();
+
 					// generate a signed url and email it to the user
 					/*$this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
 							(new TemplatedEmail())
@@ -106,8 +108,9 @@ class RegistrationController extends AbstractController
 					);*/
 					// do anything else you need here, like send an email
 
-					$this->addFlash('success', "La cuenta ha sido creada");
-					return $this->redirectToRoute('app_user_edit', ['id' => $user_Id]);
+					$this->addFlash('success', "La cuenta ha sido creada satisfactoriamente, ingresa con tus nuevas credenciales.");
+					//return $this->redirectToRoute('app_user_edit', ['id' => $user_Id]);
+					return $this->redirectToRoute('app_login');
 				}
 				else {
 					$this->addFlash('error', "Los datos ingresados para crear la cuenta no son correctos");
@@ -176,4 +179,18 @@ class RegistrationController extends AbstractController
 		dd($request->getLocale());
 		return $request->getLocale();
 	}
+
+	public function generateCodeForURL(){
+		echo  print_r("enCODE: "."1212qw ". $this->encrypt($_ENV["KEY"], '1212qw'), true).PHP_EOL;
+		echo  print_r("enCODE: "."qwe444 ". $this->encrypt($_ENV["KEY"], 'qwe444'), true).PHP_EOL;
+		echo  print_r("enCODE: "."121333 ". $this->encrypt($_ENV["KEY"], '121333'), true).PHP_EOL;
+		echo  print_r("enCODE: "."sde343 ". $this->encrypt($_ENV["KEY"], 'sde343'), true).PHP_EOL;
+		echo  print_r("enCODE: "."asqwqw ". $this->encrypt($_ENV["KEY"], 'asqwqw'), true).PHP_EOL;
+		echo  print_r("enCODE: "."67hnhn ". $this->encrypt($_ENV["KEY"], '67hnhn'), true).PHP_EOL;
+		echo  print_r("enCODE: "."98hjhj ". $this->encrypt($_ENV["KEY"], '98hjhj'), true).PHP_EOL;
+		echo  print_r("enCODE: "."67hjrr ". $this->encrypt($_ENV["KEY"], '67hjrr'), true).PHP_EOL;
+		echo  print_r("enCODE: "."mnvbdd ". $this->encrypt($_ENV["KEY"], 'mnvbdd'), true).PHP_EOL;
+		echo  print_r("enCODE: "."2rsdcn ". $this->encrypt($_ENV["KEY"], '2rsdcn'), true).PHP_EOL;
+	}
+
 }

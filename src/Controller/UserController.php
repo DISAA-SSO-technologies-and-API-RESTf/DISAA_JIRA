@@ -80,6 +80,32 @@ class UserController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
+		/**
+		 * Perform a findOneBy() where the slug property matches {slug}.
+		 */
+		#[Route('/{username}/editar', name: 'editar_username', methods: ['GET', 'POST'])]
+		#[Entity('user', options: ['username' => 'username'])] //le decimos al @ParameterConver que busque en la DB por medio del username
+		public function editByUsername(Request $request, User $user, UserRepository $userRepository) {
+			$form = $this->createForm(UserType::class, $user);
+			$form->handleRequest($request);
+
+			if ($form->isSubmitted() && $form->isValid()) {
+				$userRepository->add($user);
+				//return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+				$this->addFlash('success', "Los datos han sido editados correctamente");
+				return $this->renderForm('user/edit.html.twig', [
+					'user' => $user,
+					'last_name' => $user->getLastName(),
+					'form' => $form,
+				]);
+			}
+			return $this->renderForm('user/edit.html.twig', [
+				'user' => $user,
+				'last_name' => $user->getLastName(),
+				'form' => $form,
+			]);
+		}
+
 		#[Route('/changeLocale', name: 'changeLocale')]
 		public function changeLocale  (Request $request): Response
 		{

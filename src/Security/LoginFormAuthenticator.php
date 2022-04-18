@@ -51,9 +51,9 @@ class LoginFormAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        return new RedirectResponse($this->urlGenerator->generate('_profiler_phpinfo'));
-        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+				$username = urlencode($request->request->get('username', ''));
+        return new RedirectResponse($this->urlGenerator->generate('editar_username', ['username' => $username]));
+        //return new RedirectResponse($this->urlGenerator->generate('_profiler_phpinfo'));
     }
 
     protected function getLoginUrl(Request $request): string
