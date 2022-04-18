@@ -1,3 +1,12 @@
-Hi: Hi USA
-Hello: Hola USA
-create_account: Create account
+Hi: Hi
+register:
+  code: Código
+  dni: DNI
+  create_account: Create account
+  choose_username: Choose username
+  password: Password
+  btn_create_account: Create account
+base:
+  login: Login
+  logout: Logout
+  footer: The content of this work is the intellectual property of DISAA, all rights reserved.

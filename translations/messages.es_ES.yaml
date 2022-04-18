@@ -1,2 +1,12 @@
-Hi: Hi España
-create_account: Create account España
+Hi: Hola
+register:
+  code: Código
+  dni: DNI
+  create_account: Crear Cuenta
+  choose_username: Selecciona el username
+  password: Contraseña
+  btn_create_account: Crear cuenta
+base:
+  login: Iniciar sesión
+  logout: Salir
+  footer: El contenido de esta obra es de propiedad intelectual de la DISAA, todos los derechos reservados.

@@ -38,7 +38,7 @@ class RegistrationFormType extends AbstractType
 							//'autocomplete'=>"off",
 							'label' => false,
 							'attr' => [
-								'placeholder' => 'Identification number',
+								'placeholder' => 'register.dni',
 								'class'=>"form-control paddin-button-7",
 							],
 						])
@@ -49,7 +49,7 @@ class RegistrationFormType extends AbstractType
 							],
 							'label' => false,
 							'attr' => [
-								'placeholder' => 'Code',
+								'placeholder' => 'register.code',
 								'class'=>"form-control paddin-button-7",
 							],
 						])
@@ -80,7 +80,7 @@ class RegistrationFormType extends AbstractType
 							'mapped' => false,
 							'attr' => [
 								'autocomplete' => 'new-password',
-								'placeholder' => 'Password',
+								'placeholder' => 'register.password',
 								'class' => "form-control paddin-button-7",
 							],
 							'constraints' => [

@@ -7,8 +7,7 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1 class="text-center paddin-button-7">Create account</h1>
-    <h1 class="text-center paddin-button-7"><p>{% trans into 'es' %}create_account {% endtrans %}</p></h1>
+    <h1 class="text-center paddin-button-7">{% trans %}register.create_account {% endtrans %}</h1>
     <div class="text-center paddin-button-7">
         <img src="{{ asset('img/new_account.PNG')}}" class="rounded" alt="">
     </div>
@@ -19,8 +18,8 @@
         {{ form_row(registrationForm.code) }}
 
             <div>
-                <select id="registration_form_username" name="registration_form[username]" required="required" placeholder="Choose username" class="form-control paddin-button-7">
-                    <option value="" id="text_gray">Choose username</option>
+                <select id="registration_form_username" name="registration_form[username]" required="required" placeholder=&#34;{% trans %}register.choose_username {% endtrans %}&#34; class="form-control paddin-button-7">
+                    <option value="" id="text_gray">{% trans %}register.choose_username {% endtrans %}</option>
                     {% for item in usernames %}
                         <option value="{{ item|lower }}">{{ item|lower }}</option>
                     {% endfor %}
@@ -34,6 +33,6 @@
         }) }}
        {# {{ form_row(registrationForm.agreeTerms) }}#}
 
-        <button type="submit" class="btn">Create account</button>
+        <button type="submit" class="btn">{% trans %}register.btn_create_account {% endtrans %}</button>
     {{ form_end(registrationForm) }}
 {% endblock %}
