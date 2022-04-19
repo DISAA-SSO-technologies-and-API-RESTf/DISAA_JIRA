@@ -3,8 +3,7 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1 class="text-center paddin-button-7">Student</h1>
-    <h1>{% trans %}Hello{% endtrans %} </h1>
+    <h1 class="text-center paddin-button-7">{% trans %}editUser.student{% endtrans %}</h1>
 
     <div id="principal">
         <div id="principal_img">
@@ -12,8 +11,8 @@
         </div>
         <div id="principal_datos">
             <div class="detail_account"> <h3>{{ user.name }} {{ last_name }} </h3></div>
-            <div class="detail_account"><span class="label_info"> Account: </span>{{ user.username }}</div>
-            <div class="detail_account"> <span class="label_info">Email: </span>{{ user.account.email}} </div>
+            <div class="detail_account"><span class="label_info"> {% trans %}editUser.student{% endtrans %}: </span>{{ user.username }}</div>
+            <div class="detail_account"> <span class="label_info">{% trans %}editUser.email{% endtrans %}: </span>{{ user.account.email}} </div>
         </div>
     </div>
 

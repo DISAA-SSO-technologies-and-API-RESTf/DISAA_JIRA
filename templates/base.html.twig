@@ -43,7 +43,7 @@
                         window.location = url_completa;
                     }
                 </script>
-                <div class="px-1 text-white">
+                <div class="px-1 mb-3 text-white">
                     {% if app.request.locale == 'en_US'%}
                         <button type="button" id="btn_registerChange" onclick="changeLanguageRegister()">ES</button>&nbsp|&nbsp
                     {% else %}
@@ -56,7 +56,7 @@
                         Hi {{ app.user.username }}, <a href="{{ path('app_logout') }}"> {% trans %}base.logout{% endtrans %}</a>
                     </div>
                 {% else %}
-                    <div class="text-end">
+                    <div class="text-end mb-3">
                         <a href="{{ path('app_login') }}">  {% trans %}base.login{% endtrans %}</a>
                         {#<button type="button" class="btn btn-outline-light me-2">Login</button>#}
                     </div>

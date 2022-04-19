@@ -41,7 +41,7 @@
         {{  include('flash/error.html.twig') }}
 
 
-    <h1 class="text-center paddin-button-7">Login</h1>
+    <h1 class="text-center paddin-button-7">{% trans %}login.login{% endtrans %}</h1>
     <div class="text-center paddin-button-7">
         <img src="{{ asset('img/new_account.PNG')}}" class="rounded" alt="">
     </div>
@@ -51,18 +51,15 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    {% if app.user %}
+{#    {% if app.user %}
         <div class="mb-3">
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
-    {% endif %}
+    {% endif %}#}
 
-
-    <p>{% trans  %}Hi {% endtrans %}</p>
-    {#<p>{{ hi|trans({'%hi%': 'AquiNombreInicial'}) }}</p>#}
-    <p>Enter the authorized account details:</p>
-    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" placeholder="Username" required autofocus>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="Password" required>
+    <p>{% trans %}login.data{% endtrans %}:</p>
+    <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" placeholder="{% trans %}login.username{% endtrans %}" required autofocus>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" placeholder="{% trans %}login.password{% endtrans %}" required>
 
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
@@ -73,13 +70,13 @@
 
     <div class="checkbox mb-3">
         <label>
-            <input type="checkbox" name="_remember_me"> Remember me
+            <input type="checkbox" name="_remember_me"> {% trans %}login.rememberMe{% endtrans %}
         </label>
     </div>
 
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Login
+        {% trans %}login.login{% endtrans %}
     </button>
 </form>
     </div>
