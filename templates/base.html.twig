@@ -6,6 +6,7 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/disaa.css') }}">
+        <link rel="script" href="{{ asset('js/register.js') }}">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
         {% block stylesheets %}
@@ -29,10 +30,25 @@
                     {#<li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>#}
                     {#<li><a href="#" class="nav-link px-2 text-white">Features</a></li>#}
                 </ul>
-
-                <div class="text-end">
-                    <a href="{{ path('change_language') }}">ES </a>
-                    {#<button type="button" class="btn btn-outline-light me-2">Login</button>#}
+                <script type="text/javascript">
+                    function changeLanguageRegister() {
+                        var pathname = window.location.pathname;
+                        var URLsearch = window.location.search;
+                        var url_completa = 'localhost:8000' + pathname;
+                        if (pathname == '/en_US/register')
+                            url_completa = 'http://localhost:8000' + '/es_ES/register' + URLsearch;
+                        else
+                            url_completa = 'http://localhost:8000' + '/en_US/register' + URLsearch;
+                        //alert(url_completa);
+                        window.location = url_completa;
+                    }
+                </script>
+                <div class="px-1 text-white">
+                    {% if app.request.locale == 'en_US'%}
+                        <button type="button" id="btn_registerChange" onclick="changeLanguageRegister()">ES</button>&nbsp|&nbsp
+                    {% else %}
+                        <button type="button" id="btn_registerChange" onclick="changeLanguageRegister()">EN</button>&nbsp|&nbsp
+                    {% endif %}
                 </div>
 
                 {% if app.user %}
@@ -41,7 +57,7 @@
                     </div>
                 {% else %}
                     <div class="text-end">
-                        <a href="{{ path('app_login') }}">{% trans %}base.login{% endtrans %}</a>
+                        <a href="{{ path('app_login') }}">  {% trans %}base.login{% endtrans %}</a>
                         {#<button type="button" class="btn btn-outline-light me-2">Login</button>#}
                     </div>
                 {% endif %}

@@ -7,6 +7,9 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
+    {#{{ app.request.locale }}#}
+    {#<h1>{% set queryParams = app.request.query.all %}</h1>#}
+
     <h1 class="text-center paddin-button-7">{% trans %}register.create_account {% endtrans %}</h1>
     <div class="text-center paddin-button-7">
         <img src="{{ asset('img/new_account.PNG')}}" class="rounded" alt="">

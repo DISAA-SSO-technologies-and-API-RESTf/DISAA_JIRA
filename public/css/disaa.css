@@ -199,3 +199,9 @@ input#inputPassword {
 select#user_locale {
     margin-bottom: 7px;
 }
+
+#btn_registerChange {
+    border: none;
+    color: white;
+    background-color: #242323;
+}

@@ -38,7 +38,7 @@ class RegistrationController extends AbstractController
 		public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response {
 			$url_code = $request->get('id');
 			$iv = $this->decrypt($_ENV["KEY"], $url_code);
-
+			//dd($request->getQueryString());
 			$user = $doctrine->getRepository(User::class)->findOneBy(['code' => $iv]);
 
 			$user_Id = $user->getId();
@@ -62,9 +62,9 @@ class RegistrationController extends AbstractController
 				str_replace(RegistrationController::$no_permitidas, RegistrationController::$permitidas, str_replace(' ', '', mb_substr($user_last_name, 0, -2, 'UTF-8') . "_" . mb_substr($user_name, 0, -2, 'UTF-8'))),
 			];
 
-			print "<pre>" . print_r("URL_CODE: " . $url_code, true) . "</pre>" . PHP_EOL;
+			/*print "<pre>" . print_r("URL_CODE: " . $url_code, true) . "</pre>" . PHP_EOL;
 			print "<pre>" . print_r("DECODE: " . $iv, true) . "</pre>" . PHP_EOL;
-			echo "<pre>" . print_r("USER: " . $user, true) . "</pre>" . PHP_EOL;
+			echo "<pre>" . print_r("USER: " . $user, true) . "</pre>" . PHP_EOL;*/
 
 			$account = new Account();
 			$form = $this->createForm(RegistrationFormType::class, $user);
