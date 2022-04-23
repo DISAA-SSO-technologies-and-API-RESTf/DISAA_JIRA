@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/user')]
+#[Route('/{_locale}/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
@@ -56,7 +56,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $userRepository->add($user);
             //return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-						$this->addFlash('success', "Los datos han sido editados correctamente");
+						$this->addFlash('success', "editUser.successMessage");
 						return $this->renderForm('user/edit.html.twig', [
 							'user' => $user,
 							'last_name' => $user->getLastName(),
@@ -92,7 +92,10 @@ class UserController extends AbstractController
 			if ($form->isSubmitted() && $form->isValid()) {
 				$userRepository->add($user);
 				//return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
-				$this->addFlash('success', "Los datos han sido editados correctamente");
+				if($request->getLocale() == 'es_ES')
+					$this->addFlash('success', "Los datos han sido editados correctamente");
+				else
+					$this->addFlash('success', "The data has been edited correctly.");
 				return $this->renderForm('user/edit.html.twig', [
 					'user' => $user,
 					'last_name' => $user->getLastName(),

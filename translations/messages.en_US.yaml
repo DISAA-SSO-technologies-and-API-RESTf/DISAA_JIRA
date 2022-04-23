@@ -1,3 +1,29 @@
-Hi: Hi USA
-Hello: Hola USA
-create_account: Create account
+Hi: Hi en_USA
+register:
+  code: Código
+  dni: DNI
+  create_account: Create account
+  choose_username: Choose username
+  password: Password
+  btn_create_account: Create account
+base:
+  login: Login
+  logout: Logout
+  footer: The content of this work is the intellectual property of DISAA, all rights reserved.
+editUser:
+  student: Student
+  account: Account
+  email: Email
+  successMessage: The data has been edited correctly.
+  updateUser: Update
+  identification_number: Identification number
+  name: Name
+  last_name: Last name
+  gender: Gender
+  language: Language
+login:
+  data: Enter the authorized account details.
+  username: Username
+  password: Password
+  rememberMe: Remember me
+  login: Login

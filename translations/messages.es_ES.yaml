@@ -1,2 +1,29 @@
-Hi: Hi España
-create_account: Create account España
+Hi: Hola  es_ESPAÑOL
+register:
+  code: Código
+  dni: DNI
+  create_account: Crear Cuenta
+  choose_username: Selecciona el username
+  password: Contraseña
+  btn_create_account: Crear cuenta
+base:
+  login: Iniciar sesión
+  logout: Salir
+  footer: El contenido de esta obra es de propiedad intelectual de la DISAA, todos los derechos reservados.
+editUser:
+  student: Estudiante
+  account: Cuenta
+  email: correo
+  successMessage: Los datos han sido actualizados de manera correcta.
+  updateUser: Actualizar
+  identification_number: DNI
+  name: Nombre
+  last_name: Apellido
+  gender: Genero
+  language: Lenguage
+login:
+  data: Ingrese los detalles de la cuenta autorizada.
+  username: Usuario
+  password: Contraseña
+  rememberMe: Recordarme
+  login: Iniciar sesión

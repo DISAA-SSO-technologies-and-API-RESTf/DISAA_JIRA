@@ -26,7 +26,7 @@ class UserType extends AbstractType
 				],
 				'label' => false,
 				'attr' => [
-					'placeholder' => 'Identification number',
+					'placeholder' => 'editUser.identification_number',
 					'class' => "form-control paddin-button-7",
 				],
 			])
@@ -37,7 +37,7 @@ class UserType extends AbstractType
 				],
 				'label' => false,
 				'attr' => [
-					'placeholder' => 'Name',
+					'placeholder' => 'editUser.name',
 					'class' => "form-control paddin-button-7",
 				],
 			])
@@ -48,7 +48,7 @@ class UserType extends AbstractType
 				],
 				'label' => false,
 				'attr' => [
-					'placeholder' => 'Last name',
+					'placeholder' => 'editUser.last_name',
 					'class' => "form-control paddin-button-7",
 				],
 			])
@@ -60,7 +60,7 @@ class UserType extends AbstractType
 				'label' => false,
 				'choices' => ["Male" => "Male", "Female" => "Female"],
 				'attr' => [
-					'placeholder' => 'Gender',
+					'placeholder' => 'editUser.gender',
 					'class' => "form-control paddin-button-7",
 				],
 			])
@@ -70,9 +70,9 @@ class UserType extends AbstractType
 					new Length(['min' => 1]),
 				],
 				'label' => false,
-				'choices' => ["USA en_US" => "en_US", "Francia fr_FR" => "fr_FR"],
+				'choices' => ["USA" => "en_US", "Español" => "es_ES"],
 				'attr' => [
-					'placeholder' => 'Language',
+					'placeholder' => 'editUser.language',
 					'class' => "form-control paddin-button-7",
 				],
 			])
