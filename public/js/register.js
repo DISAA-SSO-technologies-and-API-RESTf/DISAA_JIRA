@@ -9,3 +9,4 @@ function changeLanguageRegister() {
     //alert(url_completa);
     window.location = url_completa;
 }
+

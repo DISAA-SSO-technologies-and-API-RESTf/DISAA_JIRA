@@ -21,9 +21,24 @@ editUser:
   last_name: Last name
   gender: Gender
   language: Language
+  administrative: Administrative
+  goToEmail: Go to email
+  profile: Profile
 login:
   data: Enter the authorized account details.
   username: Username
   password: Password
   rememberMe: Remember me
   login: Login
+email:
+  mail: Email
+  send: Send
+  sendforall: Send for all
+  hi: Hi
+  dear: Dear
+  disclaimer: Disclaimer
+  disclaimer_information: The information in this e-mail is confidential and only for the use of the person or company to which it is addressed. This information cannot be totally or partially distributed or copied by any media without the authorization from DISAA S.A. The institution does not assume responsibility about information or criteria contained in this e-mail that it is not related to the business.
+  footer: This email has been sent as part of the services that DISAA offers to its students through www.disaa.com. We recommend that you consult our Privacy Policy for more information.
+  footer_anio: © 2022, DISAA, All rights reserved.
+  back: Back
+

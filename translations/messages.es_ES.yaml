@@ -21,9 +21,22 @@ editUser:
   last_name: Apellido
   gender: Genero
   language: Lenguage
+  administrative: Administrativo
+  profile: Perfil
 login:
   data: Ingrese los detalles de la cuenta autorizada.
   username: Usuario
   password: Contraseña
   rememberMe: Recordarme
   login: Iniciar sesión
+email:
+  mail: Correo
+  send: Enviar
+  sendforall: Enviar a todos
+  hi: Hola
+  dear: Estimado
+  disclaimer: Nota de descargo
+  disclaimer_information:  La información contenida en este e-mail es confidencial y solo puede ser utilizada por el individuo o la compañía a las cuales está dirigido. Esta información no debe ser distribuida, ni copiada total o parcialmente por ningún medio, sin la autorización de DISAA S.A. La organización no asume responsabilidad sobre información, opiniones o criterios contenidos en este e-mail que no esté relacionada con negocios oficiales de nuestra institución.
+  footer: Este correo ha sido enviado como parte de los servicios que DISAA ofrece a sus estudiantes a través de www.disaa.com. Le recomendamos que consulte nuestra Política de Privacidad para más información.
+  footer_anio: © 2022, DISAA, Todos los derechos reservados.
+  back: Atrás

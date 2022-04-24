@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    {#<a id="email_back" href="{{ path('editar_username',{'username':app.user.username}) }}"><span><i class="material-icons" style="font-size:25px">arrow_back </i>{% trans %}email.back {% endtrans %}</span></a>#}
+    <h1 class="text-center paddin-button-7"><p>{% trans %}email.mail {% endtrans %}</p></h1>
+    <form id="fsolicitud-email" data-url="{{ path('app_email_new', {'username':'rafael01'}) }}" method="post">
+        <div class="marco">
+            <div class="">
+                <div class="form-group paddin-button-7">
+                    <input id="to" class="form-control" placeholder="To" name="to" type="text" value="" aria-label="default input example" required>
+                </div>
+            </div>
+            <div class="">
+                <div class="form-group paddin-button-7">
+                    <input id="subject" class="form-control" name="subject" type="text" value="" data-ini="" placeholder="Subject" aria-label="default input example" required>
+                </div>
+            </div>
+            <div class="">
+                <div class="form-group paddin-button-7">
+                    <textarea  id="msn" class="form-control" type="textarea" name="msn" placeholder="Enter mesage....." value="" required></textarea>
+                </div>
+            </div>
+            <div class="check_sendforall">
+                {#<input type="checkbox" id="myCheck" name="myCheck" onclick="myFunction()">
+                <label for="myCheck"> {% trans %}email.sendforall {% endtrans %}</label><br>#}
+                <label for="myCheck">{% trans %}email.sendforall {% endtrans %} </label>
+                <input type="checkbox" id="myCheck" name="myCheck" onclick="myFunction()">
+            </div>
+        </div>
+        <div class="">
+            <div class="form-group paddin-button-7">
+                <div class="btns centrado">
+                    {# <button id="fe-cmd-cancelar" type="button" class="btn btn-default">Cancelar</button> #}
+                    <button id="fe-cmd-email" type="submit" class="btn btn-primary btn-sm">{% trans %}email.send {% endtrans %}</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            function myFunction() {
+                var checkBox = document.getElementById("myCheck");
+                var text = document.getElementById("text");
+                if (checkBox.checked == true) {
+                    document.getElementById("to").valueOf("");
+                    document.getElementById("to").removeAttribute('required');
+                    document.getElementById("to").disabled = true;
+                } else {
+                    document.getElementById("to").setAttribute('required', 'required');
+                    document.getElementById("to").disabled = false;
+                }
+            }
+        </script>
+    </form>
+{% endblock %}

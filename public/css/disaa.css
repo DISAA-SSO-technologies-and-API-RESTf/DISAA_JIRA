@@ -205,3 +205,30 @@ select#user_locale {
     color: white;
     background-color: #242323;
 }
+
+button#fe-cmd-email {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    width: 47%;
+}
+
+.check_sendforall {
+    display: block;
+    float: right;
+    margin-top: 4px;
+}
+
+textarea#msn {
+    height: 13.2em;
+}
+
+a#goToEmail {
+    position: absolute;
+    margin-left: 45%;
+}
+
+a#email_back {
+    position: absolute;
+    margin-left: -15%;
+}

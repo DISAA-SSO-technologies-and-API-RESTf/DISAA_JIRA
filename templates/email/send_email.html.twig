@@ -1,0 +1,72 @@
+<style>
+    h1#email_h1 {
+        text-align: center;
+        color: #3f83d7;
+    }
+
+    hr#hr_disaa {
+/*        border-color: #3f83d7;
+        size: a3;
+        width: 50%;
+        display: block;
+        unicode-bidi: isolate;
+        margin-block-start: 0.5em;
+        margin-block-end: 0.5em;
+        margin-inline-start: auto;
+        margin-inline-end: auto;
+        overflow: hidden;
+        border-style: solid;
+        border-width: 1px;
+        margin-bottom: 4%;*/
+    }
+    h1#email_h1 {
+        text-align: left;
+        color: white;
+        padding-left: 21px;
+        background-color: #1b2493;
+        /* font-size: 27px; */
+    }
+    p#msn_email {
+        margin-bottom: 9%;
+    }
+    div#footer_email_div {
+        text-align: center;
+        background-color: #efefef;
+    }
+    p#url_disaa {
+        text-align: center;
+        text-shadow: 0 0 black;
+    }
+    p#footer_email {
+        padding: 2% 2%;
+    }
+    p#footer_email_anio {
+        padding-bottom: 2%;
+    }
+    div#email_body {
+        border: 1px solid gainsboro;
+        padding: 0% 5% 5% 5%;
+    }
+</style>
+<div id="email_body">
+
+    <h1 id="email_h1">DISAA</h1>
+    <hr id="hr_disaa">
+    <h4 id="email_h1">{% trans %}email.dear {% endtrans %}! {{ name_lastName }}</h4>
+
+    <p id="msn_email">
+        {{ msn }}
+    </p>
+
+
+    <p id="url_disaa">www.dissa.com</p>
+    <hr>
+    <div id="footer_email_div">
+    <p id="footer_email">
+        {% trans %}email.disclaimer {% endtrans %}: {% trans %}email.disclaimer_information {% endtrans %}
+    </p>
+    <p id="footer_email_anio">
+        {% trans %}email.footer_anio {% endtrans %}
+    </p>
+    </div>
+</div>

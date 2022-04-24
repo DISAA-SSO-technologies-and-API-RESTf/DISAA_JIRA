@@ -3,7 +3,12 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1 class="text-center paddin-button-7">{% trans %}editUser.student{% endtrans %}</h1>
+
+    {% if  app.user.type == 'Administrative' %}
+        <a id="goToEmail" href="{{ path('app_email_new',{'username':app.user.username}) }}" title="{% trans %}editUser.goToEmail {% endtrans %}"> <i class="material-icons" style="font-size:36px">email</i></a>
+    {% endif %}
+
+    <h1 class="text-center paddin-button-7"> {% if user.type=='Student' %}{% trans %}editUser.student{% endtrans %}{% else %} {% trans %}editUser.administrative{% endtrans %}{% endif %}</h1>
 
     <div id="principal">
         <div id="principal_img">
